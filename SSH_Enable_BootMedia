@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+pacman -S openssh --noconfirm
+sed -i -e '/PermitEmptyPasswords/ s/#//; s/no/yes/' /etc/ssh/sshd_config  # allow root empty password login
+sed -i  '/^#PermitRootLogin/ s/#//p;' /etc/ssh/sshd_config # enable PermitRootLogin
+sed -i  '/^PermitRootLogin/ s/prohibit-password/yes/' /etc/ssh/sshd_config #allow root login
+systemctl start sshd
+systemctl start dhcpcd
